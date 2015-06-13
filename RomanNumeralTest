@@ -1,0 +1,41 @@
+package com.pillar.roamannumeral.test;
+
+import com.pillar.romannumeral.java.RomanNumeral;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * Created by kiran on 6/13/2015.
+ */
+public class RomanNumeralTest {
+
+    private static RomanNumeral romanNumeral;
+
+    @BeforeClass
+    public static void setUp() {
+        romanNumeral =new RomanNumeral();
+
+    }
+
+    @Test
+    public void  numericToNumeralConversion(){
+        assertEquals("I",romanNumeral.numericToNumeralConversion(1));
+        assertEquals("III",romanNumeral.numericToNumeralConversion(3));
+        assertEquals("IX",romanNumeral.numericToNumeralConversion(9));
+        assertEquals("MLXVI",romanNumeral.numericToNumeralConversion(1066));
+        assertEquals("MCMLXXXIX",romanNumeral.numericToNumeralConversion(1989));
+        assertEquals("InvalidNumber",romanNumeral.numericToNumeralConversion(4000));
+    }
+
+    @Test
+    public void  numeralToNumericConversion(){
+        assertEquals(1,romanNumeral.numeralToNumericConversion("I"));
+        assertEquals(3,romanNumeral.numeralToNumericConversion("III"));
+        assertEquals(9,romanNumeral.numeralToNumericConversion("IX"));
+        assertEquals(1066,romanNumeral.numeralToNumericConversion("MLXVI"));
+        assertEquals(1989,romanNumeral.numeralToNumericConversion("MCMLXXXIX"));
+    }
+
+}
