@@ -1,0 +1,53 @@
+package com.pillar.romannumeral.java;
+
+/**
+ * Created by kiran on 6/13/2015.
+ */
+public class RomanNumeral {
+
+    public String numericToNumeralConversion(int numeric){
+        StringBuilder numeral = new StringBuilder();
+        if(numeric<1 || numeric>3999){
+            return "InvalidNumber";
+        }
+        final NumericNumeral[] values = NumericNumeral.values();
+        for (int i = values.length - 1; i >= 0; i--) {
+            while (numeric >= values[i].num) {
+                numeral.append(values[i]);
+                numeric -= values[i].num;
+            }
+        }
+        return numeral.toString();
+
+    }
+
+    public int numeralToNumericConversion(String numeral){
+        if (numeral.length() == 0)
+            throw new NumberFormatException("EmptyString");
+        numeral = numeral.toUpperCase();
+        int i = 0;
+        int numeric = 0;
+        while (i < numeral.length()) {
+            String letter = String.valueOf(numeral.charAt(i));
+            int number = NumericNumeral.valueOf(letter).num;
+            if (number < 0)
+                throw new NumberFormatException("IllegalCharacter \"" + letter + "\" ");
+            i++;
+            if (i == numeral.length()) {
+                numeric += number;
+            } else {
+                String nextLetter = String.valueOf(numeral.charAt(i));
+                int nextNumber = NumericNumeral.valueOf(nextLetter).num;
+                if (nextNumber > number) {
+                    numeric += (nextNumber - number);
+                    i++;
+                } else {
+                    numeric += number;
+                }
+            }
+        }
+        if (numeric > 3999)
+            throw new NumberFormatException("Roman numeral must have value 3999 or less.");
+        return numeric;
+    }
+}
